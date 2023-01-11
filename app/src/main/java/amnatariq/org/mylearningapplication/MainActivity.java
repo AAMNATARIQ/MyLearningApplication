@@ -268,6 +268,8 @@ public class MainActivity extends AppCompatActivity {
     public void updateView()
     {
         Intent intent = new Intent(this,Activity2.class);
+        intent.putExtra("keycorrect",mScore);
+        intent.putExtra("keyincorrect",mIncorrect);
         startActivity(intent);
     }
 
