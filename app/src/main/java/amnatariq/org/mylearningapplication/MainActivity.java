@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
         resBtn.setVisibility(View.INVISIBLE);
 
         QuizDbHelper dbHelper = new QuizDbHelper(this);
-        qList = dbgHelper.getAllQuestions();
+        qList = dbHelper.getAllQuestions();
 
         updateQuestion();
 
