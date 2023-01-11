@@ -40,6 +40,9 @@ public class MainActivity extends AppCompatActivity {
 
     String mCorrectAnswers[] = {"C++","an algorithm","JavaScript","interpreter","declaration","boolean"};
 
+    String myQuestions[]={};
+    String myAnswers[] ={};
+
     TextView mScoreView;
     TextView mIncorrectView;
     TextView mTotalQuestionView;
@@ -74,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
     int[] array;
     ArrayList<Integer> list = new ArrayList<Integer>(6);
-    List<String> q1 = new ArrayList<>();
+    ArrayList<String> q1 = new ArrayList<>();
     ArrayList<String> q2 = new ArrayList<>();
     ArrayList<String> q3 = new ArrayList<>();
     ArrayList<String> q4 = new ArrayList<>();
@@ -149,8 +152,8 @@ public class MainActivity extends AppCompatActivity {
                         //updateQuestionView();
                     }
                 }
-                q1.add(ans);
                 q1.add(cAns);
+                q1.add(ans);
                 cAns=" ";
             }
         });
@@ -192,8 +195,8 @@ public class MainActivity extends AppCompatActivity {
                         //updateQuestionView();
                     }
                 }
-                q1.add(ans);
                 q1.add(cAns);
+                q1.add(ans);
                 cAns=" ";
                 //resultArr[num+1]=ans;
             }
@@ -235,8 +238,8 @@ public class MainActivity extends AppCompatActivity {
                         //updateQuestionView();
                     }
                 }
-                q1.add(ans);
                 q1.add(cAns);
+                q1.add(ans);
                 cAns=" ";
                 //resultArr[num+1]=ans;
             }
@@ -267,9 +270,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void updateView()
     {
-        Intent intent = new Intent(this,Activity2.class);
-        intent.putExtra("keycorrect",mScore);
-        intent.putExtra("keyincorrect",mIncorrect);
+        String s=String.valueOf(mScore);
+        String i=String.valueOf(mIncorrect);
+
+        Intent intent = new Intent(MainActivity.this,Activity2.class);
+        intent.putExtra("keycorrect",s);
+        intent.putExtra("keyincorrect",i);
+        intent.putExtra("stringArray", q1);
+
         startActivity(intent);
     }
 
@@ -295,6 +303,7 @@ public class MainActivity extends AppCompatActivity {
         updateQuestionNum(mTotalQuestion);
         String q = getQuestionRand();
         mQuestionView.setText(q);
+
 
         //q1.add(q);
         //resultArr[num]=q;
