@@ -1,10 +1,13 @@
 package amnatariq.org.mylearningapplication;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class QuizDbHelper extends SQLiteOpenHelper {
@@ -56,8 +59,24 @@ public class QuizDbHelper extends SQLiteOpenHelper {
         db.insert(QuizContract.QuestionsTable.TABLE_NAME,null,cv);
     }
 
+    @SuppressLint("Range")
     public List<Question> getAllQuestions(){
-        List<Question> alist = new ArrayList<>();
+        List<Question> qlist = new ArrayList<>();
         db=getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT * FROM " + QuizContract.QuestionsTable.TABLE_NAME, null);
+
+        if(c.moveToFirst()){
+            do{
+                Question question = new Question();
+                question.setQuestion(c.getString(c.getColumnIndex(QuizContract.QuestionsTable.COLUMN_QUESTION)));
+                question.setOption1(c.getString(c.getColumnIndex(QuizContract.QuestionsTable.COLUMN_OPTION1)));
+                question.setOption2(c.getString(c.getColumnIndex(QuizContract.QuestionsTable.COLUMN_OPTION2)));
+                question.setOption3(c.getString(c.getColumnIndex(QuizContract.QuestionsTable.COLUMN_OPTION3)));
+                question.setAnswer(c.getString(c.getColumnIndex(QuizContract.QuestionsTable.COLUMN_ANSWER)));
+                qlist.add(question);
+            }while(c.moveToNext());
+        }
+        c.close();
+        return qlist;
     }
 }

@@ -91,6 +91,8 @@ public class MainActivity extends AppCompatActivity {
 
     String resultArr[];
 
+    private List<Question> qList;
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -113,6 +115,9 @@ public class MainActivity extends AppCompatActivity {
         textView = (TextView)findViewById(R.id.answer);
 
         resBtn.setVisibility(View.INVISIBLE);
+
+        QuizDbHelper dbHelper = new QuizDbHelper(this);
+        qList = dbgHelper.getAllQuestions();
 
         updateQuestion();
 
